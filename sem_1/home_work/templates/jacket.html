@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{%  block title %}
+Куртки
+{% endblock %}
+
+{%  block content %}
+{% for jacket in jacket_list %}
+<h2>{{jacket.jacket_title}}</h2>
+<p>{{jacket.made_in}}</p>
+<p>{{jacket.year}}</p>
+<p>{{jacket.size_jacket}}</p>
+{% endfor %}
+{% endblock %}

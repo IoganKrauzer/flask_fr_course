@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{%  block title %}
+Обувь
+{% endblock %}
+
+{%  block content %}
+{% for shoes in shoes_list %}
+<h2>{{shoes.shoes_title}}</h2>
+<p>{{shoes.made_in}}</p>
+<p>{{shoes.year}}</p>
+{% endfor %}
+{% endblock %}

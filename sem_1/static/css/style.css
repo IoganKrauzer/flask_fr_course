@@ -1,0 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-color: #AFEEEE;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid gray;
+    padding: 5px 5px;
+    text-align: center;
+}
+
+news {
+    padding: 5px;
+    margin: 10px;
+}
