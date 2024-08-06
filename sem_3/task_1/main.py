@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from models import db, Student, Faculty
+from task_1.models import db, Student, Faculty
 from random import randint, choice
 
 

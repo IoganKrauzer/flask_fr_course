@@ -1,0 +1,1 @@
+password = PasswordField('Password', validators=[DataRequired(), Length(min=8), Regexp(regex=r'\d[a-zA-Za-яА-я]')])

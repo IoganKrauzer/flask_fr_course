@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+{% for user in users %}
+<p>{{ user }}</p>
+{% endfor %}
+<a href="{{ url_for('index')}}"></a>
+</body>
+</html>

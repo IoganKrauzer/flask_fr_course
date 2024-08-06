@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for book in books%}
+<h2>Книга: {{book}} </h2>
+{% for author in book.author%}
+<p>Авторы: {{author}}</p>
+{% endfor %}
+{% endfor %}
+</body>
+</html>
