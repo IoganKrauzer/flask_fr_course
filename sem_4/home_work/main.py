@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 import argparse
 import asyncio
+import aiohttp
 import time
 from multiprocessing import Process
 from threading import Thread
@@ -9,7 +10,7 @@ from threading import Thread
 import requests
 
 images_data = []
-with open('images.txt', 'r') as images:
+with open('./images/images.txt', 'r') as images:
     for image in images.readlines():
         images_data.append(image.strip())
 
