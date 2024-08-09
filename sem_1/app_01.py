@@ -15,7 +15,7 @@ def index():
 
 @app.route('/world/')
 def world():
-    return render_template('index.html')
+    return render_template('base.html')
 
 
 @app.route('/about/')
