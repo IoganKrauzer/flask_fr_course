@@ -6,7 +6,6 @@ import aiohttp
 import time
 from multiprocessing import Process
 from threading import Thread
-
 import requests
 
 images_data = []
@@ -19,7 +18,7 @@ PATH = Path('./images')
 
 def download_img(url, dir_path=PATH):
     start_time = time.time()
-    response = requests.get(url, stream=True)
+    response = requests.get(url)
     filename = url.split('/')[-1]
     with open(os.path.join(dir_path, filename), 'wb') as f:
         for data in response.iter_content(1024):
@@ -75,10 +74,11 @@ if __name__ == '__main__':
     parser.add_argument('-u', '--urls', default=images_data, nargs='+', type=str,
                         help='Список URL-адресов для загрузки изображений')
     args = parser.parse_args()
+    urls = args.urls
 
-    print(f'Download {len(args)} images. #Мультипотоки')
-    download_img_thread(args)
-    print(f'Download {len(args)} images. #Мультипроцессы')
-    download_img_process(args)
-    print(f'Download {len(args)} images. #Асинхронно')
-    asyncio.run(download_img_async(args))
+    print(f'Download {len(urls)} images. #Мультипотоки')
+    download_img_thread(urls)
+    print(f'Download {len(urls)} images. #Мультипроцессы')
+    download_img_process(urls)
+    print(f'Download {len(urls)} images. #Асинхронно')
+    asyncio.run(download_img_async(urls))
