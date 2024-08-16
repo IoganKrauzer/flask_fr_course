@@ -10,21 +10,21 @@ from threading import Thread
 import requests
 
 images_data = []
-with open('./images/images.txt', 'r') as images:
+with open("./images/images.txt", "r") as images:
     for image in images.readlines():
         images_data.append(image.strip())
 
-PATH = Path('./images')
+PATH = Path("./images")
 
 
 def download_img(url, dir_path=PATH):
     start_time = time.time()
     response = requests.get(url, stream=True)
-    filename = url.split('/')[-1]
-    with open(os.path.join(dir_path, filename), 'wb') as f:
+    filename = url.split("/")[-1]
+    with open(os.path.join(dir_path, filename), "wb") as f:
         for data in response.iter_content(1024):
             f.write(data)
-    print(f'Downloaded: {filename} time spent: {time.time() - start_time:.2f} sec')
+    print(f"Downloaded: {filename} time spent: {time.time() - start_time:.2f} sec")
 
 
 async def download_img_async_(url, dir_path=PATH):
@@ -32,10 +32,10 @@ async def download_img_async_(url, dir_path=PATH):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             data = await response.read()
-            filename = url.split('/')[-1]
-            with open(os.path.join(dir_path, filename), 'wb') as f:
+            filename = url.split("/")[-1]
+            with open(os.path.join(dir_path, filename), "wb") as f:
                 f.write(data)
-    print(f'Downloaded: {filename} time spent: {time.time() - start_time:.2f} sec')
+    print(f"Downloaded: {filename} time spent: {time.time() - start_time:.2f} sec")
 
 
 def download_img_thread(urls):
@@ -50,7 +50,7 @@ def download_img_thread(urls):
     for thread in threads:
         thread.join()
 
-    print(f'Time spent: {time.time() - start_time:.2f} sec')
+    print(f"Time spent: {time.time() - start_time:.2f} sec")
 
 
 def download_img_process(urls):
@@ -65,7 +65,7 @@ def download_img_process(urls):
     for process in processes:
         process.join()
 
-    print(f'Time spent: {time.time() - start_time:.2f} sec')
+    print(f"Time spent: {time.time() - start_time:.2f} sec")
 
 
 async def download_img_async(urls):
@@ -77,19 +77,25 @@ async def download_img_async(urls):
         tasks.append(task)
 
     await asyncio.gather(*tasks)
-    print(f'Time spent: {time.time() - start_time:.2f} sec')
+    print(f"Time spent: {time.time() - start_time:.2f} sec")
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Парсинг изображений по URL-адресам')
-    parser.add_argument('-u', '--urls', default=images_data, nargs='+', type=str,
-                        help='Список URL-адресов для загрузки изображений')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Парсинг изображений по URL-адресам")
+    parser.add_argument(
+        "-u",
+        "--urls",
+        default=images_data,
+        nargs="+",
+        type=str,
+        help="Список URL-адресов для загрузки изображений",
+    )
     args = parser.parse_args()
     urls = args.urls
 
-    print(f'Downloaded {len(urls)} images. #Мультипотоки')
+    print(f"Downloaded {len(urls)} images. #Мультипотоки")
     download_img_thread(urls)
-    print(f'Downloaded {len(urls)} images. #Мультипроцессы')
+    print(f"Downloaded {len(urls)} images. #Мультипроцессы")
     download_img_process(urls)
-    print(f'Downloaded {len(urls)} images. #Асинхронно')
+    print(f"Downloaded {len(urls)} images. #Асинхронно")
     asyncio.run(download_img_async(urls))

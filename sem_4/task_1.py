@@ -11,31 +11,36 @@ import requests
 import threading
 import time
 
-urls = ['https://www.google.ru/',
-        'https://gb.ru/',
-        'https://ya.ru/',
-        'https://www.python.org/',
-        'https://habr.com/ru/all/',
-        'https://stepik.org/',
-        'https://2.doramalive.news/',
-        'https://pollen-attempt-4ac.notion.site/',
-        'https://lnmtl.com/',
-        'https://plati.market/'
-        ]
+urls = [
+    "https://www.google.ru/",
+    "https://gb.ru/",
+    "https://ya.ru/",
+    "https://www.python.org/",
+    "https://habr.com/ru/all/",
+    "https://stepik.org/",
+    "https://2.doramalive.news/",
+    "https://pollen-attempt-4ac.notion.site/",
+    "https://lnmtl.com/",
+    "https://plati.market/",
+]
 
 
 def download(url):
     response = requests.get(url)
-    dir_path = 'C:\\Users\Сергей\PycharmProjects\\flask_seminars\sem_4\\task_1_files\\'
+    dir_path = "C:\\Users\Сергей\PycharmProjects\\flask_seminars\sem_4\\task_1_files\\"
 
-    filename = 'threading_' + url.replace('https://', '').replace('.', '_').replace('/', '') + '.html'
+    filename = (
+        "threading_"
+        + url.replace("https://", "").replace(".", "_").replace("/", "")
+        + ".html"
+    )
     new_path = dir_path + filename
-    with open(new_path, "w", encoding='utf-8') as f:
+    with open(new_path, "w", encoding="utf-8") as f:
         f.write(response.text)
         print(f"Downloaded {url} in {time.time() - start_time:.2f} seconds")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     threads = []
     start_time = time.time()
 
