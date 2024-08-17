@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from db import database
+from sem_6.home_work.routs import user, product, order, fake_data
 
 
 app = FastAPI()
@@ -14,6 +15,12 @@ async def startup():
 @app.on_event("shutdown")
 async def shutdown():
     await database.disconnect()
+
+
+app.include_router(user.router, tags=["users"])
+app.include_router(product.router, tags=["products"])
+app.include_router(order.router, tags=["orders"])
+app.include_router(fake_data.router, tags=["data"])
 
 
 if __name__ == "__main__":

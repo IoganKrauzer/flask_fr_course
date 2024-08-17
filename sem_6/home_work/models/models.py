@@ -39,7 +39,7 @@ class Order(BaseModel):
 
 
 class OrderIn(BaseModel):
-    user_id: int
-    product_id: int
-    date: datetime.date
-    status: str
+    user_id: int = Field(..., title="User ID")
+    product_id: int = Field(..., title="Product ID")
+    date: datetime.date = Field(..., title="Created at")
+    status: str = Field(..., title="Status")
