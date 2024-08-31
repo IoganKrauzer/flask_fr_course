@@ -1,12 +1,9 @@
 from pydantic import BaseModel, Field, EmailStr
 import datetime
+from passlib.context import CryptContext
 
 
-class Product(BaseModel):
-    id: int
-    title: str
-    description: str
-    price: float
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class ProductIn(BaseModel):
@@ -15,12 +12,8 @@ class ProductIn(BaseModel):
     price: float
 
 
-class User(BaseModel):
+class Product(ProductIn):
     id: int
-    first_name: str
-    last_name: str
-    email: EmailStr
-    password: str
 
 
 class UserIn(BaseModel):
@@ -29,13 +22,12 @@ class UserIn(BaseModel):
     email: EmailStr
     password: str
 
+    def get_password_hash(self):
+        self.password = pwd_context.hash(self.password)
 
-class Order(BaseModel):
-    order_id: int
-    user_id: int
-    product_id: int
-    order_date: datetime.date
-    order_status: str
+
+class User(UserIn):
+    id: int
 
 
 class OrderIn(BaseModel):
@@ -43,3 +35,7 @@ class OrderIn(BaseModel):
     product_id: int = Field(..., title="Product ID")
     date: datetime.date = Field(..., title="Created at")
     status: str = Field(..., title="Status")
+
+
+class Order(OrderIn):
+    order_id: int
